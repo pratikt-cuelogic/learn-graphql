@@ -17,6 +17,8 @@ class Users extends Component {
     this.props.userStore.deleteUser(id);
   }
 
+  loadMore = () => this.props.userStore.loadMore();
+
   render () {
     const {users, loading, error} = this.props.userStore;
     return (
@@ -29,6 +31,7 @@ class Users extends Component {
           loading={loading}
           error={error}
           deleteUser={this.deleteUser}
+          loadMore={this.loadMore}
         />
         <UserCreate createUser={this.createUser} />
       </div>

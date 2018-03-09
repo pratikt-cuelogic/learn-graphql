@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 
 // queries and mutations
 export const allUsersQuery = gql`
-  {
-    allUsers {
+  query allUsers($first: Int!, $skip: Int!) {
+    allUsers(first: $first, skip: $skip) {
       id
       name
       email
@@ -11,6 +11,9 @@ export const allUsersQuery = gql`
       state
       ssn
       dateOfBirth
+    }
+    _allUsersMeta {
+      count
     }
   }
 `;

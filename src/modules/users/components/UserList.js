@@ -36,9 +36,15 @@ const UserList = (props) => {
           <th>Action</th>
         </tr>
       </thead>
+       <tfoot>
+        <tr>
+          <td className="rightText" colSpan="7"><a onClick={props.loadMore}>load more</a></td>
+        </tr>
+      </tfoot>
       <tbody>
         <ShowData {...props}/>
-      </tbody>  
+      </tbody>
+
     </table>
   )
 };

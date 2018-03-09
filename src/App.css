@@ -53,3 +53,11 @@
     background-color: #4CAF50;
     color: white;
 }
+
+.rightText {
+  text-align: right;
+  color: blue;
+  font-size: 15px;
+  margin-right: 11px;
+  cursor: pointer;
+}
