@@ -2,6 +2,7 @@ This project is build to try out various solutions for React, GraphQL, which can
 
 ## Todos
 
+- [x] Base architecture with apollo mobx
 - [ ] CRUD Implemention
 - [ ] Search functionality on report
 - [ ] Sorting functionality on report
