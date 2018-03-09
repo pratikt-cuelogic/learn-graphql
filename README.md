@@ -1,4 +1,4 @@
-This project is build to do try out various solutions for React, GraphQL, which can be later consumed in actual project
+This project is build to try out various solutions for React, GraphQL, which can be later consumed in actual project
 
 ## Todos
 
