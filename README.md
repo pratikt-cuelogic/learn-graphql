@@ -11,3 +11,21 @@ This project is build to try out various solutions for React, GraphQL, which can
 - [ ] Export queries/schema which can be easily imported to React application
 - [ ] Authentication
 
+## Testing
+
+- https://www.codementor.io/vijayst/unit-testing-react-components-jest-or-enzyme-du1087lh8
+- https://medium.com/@TuckerConnelly/good-practices-for-testing-react-apps-3a64154fa3b1
+- http://softwaretestingfundamentals.com/integration-testing/
+- https://dev-blog.apollodata.com/designing-graphql-mutations-e09de826ed97
+- https://github.com/AlexGilleran/jsx-control-statements
+- https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
+- https://medium.com/android-testing-daily/the-3-tiers-of-the-android-test-pyramid-c1211b359acd [pyramid]
+- https://codeutopia.net/blog/2015/04/11/what-are-unit-testing-integration-testing-and-functional-testing/
+
+Pyramid
+=====================
+
+UI test: (Functional Testing/E2E testing, or browser testing): 
+--------------------
+babel-jest babel-preset-stage-0 enzyme jest-cli react-addons-test-utils react-test-renderer redux-mock-store sinon
+

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 // import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 import './index.css';
@@ -9,7 +10,9 @@ import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <Provider {...stores}>
-    <App/>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>
   , document.getElementById('root'));
 registerServiceWorker();

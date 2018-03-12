@@ -16,6 +16,7 @@
 
 .App-title {
   font-size: 1em;
+  float: left;
 }
 
 .App-intro {
@@ -60,4 +61,50 @@
   font-size: 15px;
   margin-right: 11px;
   cursor: pointer;
+}
+
+/*
+Timeline css
+*/
+
+.Timeline {
+  width: 540px;
+  border: 1px solid #d2c1c1;
+}
+
+.Timeline h1 {
+  font-size: 26px;
+  padding: 11px;
+  margin: 0;
+  background-color: #2607a0;
+  color: white;
+}
+
+.Timeline h1 span{
+  font-size: 12px;
+  float: right;
+}
+
+.Timeline ul {
+  list-style: none;
+  text-align: left;
+  display: none;
+}
+
+.Timeline ul.active {
+  display: block;
+}
+.Timeline ul li span.time {
+  font-size: 14px;
+  font-style: italic;
+  color: #333;
+  float: left;
+  min-width:100px;
+}
+
+.App-header h1 a {
+  color: #FFF;
+  margin: 10px;
+  font-size: 16px;
+  text-decoration: none;
 }
