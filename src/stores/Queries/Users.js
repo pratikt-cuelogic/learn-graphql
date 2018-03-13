@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-// queries and mutations
+// queries, mutations and subscriptions
 export const allUsersQuery = gql`
   query allUsers($first: Int!, $skip: Int!) {
     allUsers(first: $first, skip: $skip) {
@@ -36,6 +36,24 @@ export const deleteUserMutation = gql`
   mutation deleteUser($id:  ID! ) {
     deleteUser(id: $id) {
       id
+    }
+  }
+`;
+
+
+export const userSubscription = gql`
+  subscription {
+    User(filter: { mutation_in: [CREATED, UPDATED] }) {
+      mutation
+      node {
+        id
+        name
+        email
+        city
+        state
+        ssn
+        dateOfBirth
+      }
     }
   }
 `;
