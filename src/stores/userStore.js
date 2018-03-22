@@ -7,7 +7,7 @@ export class UserStore {
   constructor() {
     extendObservable(this, {  
       get allUsers() {
-        return graphql({ client, query: allUsersQuery, variables: { first: 500, skip: 0 } });
+        return graphql({ client, query: allUsersQuery, variables: { first: 10, skip: 0 } });
       },
       get error() {
         return (this.allUsers.error && this.allUsers.error.message) || null;
