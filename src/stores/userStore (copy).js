@@ -1,37 +1,31 @@
-import { observable, action, computed, toJS } from 'mobx';
-
+import { extendObservable, toJS } from 'mobx';
 import graphql from 'mobx-apollo';
 import { GqlClient as client } from '../api/GqlClient';
 import { allUsersQuery, createUserMutation, deleteUserMutation, userSubscription } from './Queries/Users';
 
 export class UserStore {
-  @observable usersData = [];
-
   constructor() {
-    this.usersData = graphql({ client, query: allUsersQuery, variables: { first: 10, skip: 0 } });
-  }
+    extendObservable(this, {  
+      get allUsers() {
+        return graphql({ client, query: allUsersQuery, variables: { first: 10, skip: 0 } });
+      },
+      get error() {
+        return (this.allUsers.error && this.allUsers.error.message) || null;
+      },
+      get loading() {
+        return this.allUsers.loading;
+      },
+      get users() {
+        return (this.allUsers.data && toJS(this.allUsers.data.allUsers)) || [];
+      },
+      get count() {
+        return this.users.length;
+      }
+    });
 
-  @computed get allUsers() {
-    return this.usersData;
+    this.subscribe();
   }
-
-  @computed get users() {
-    return (this.allUsers.data && toJS(this.allUsers.data.allUsers)) || [];
-  }
-
-  @computed get error() {
-    return (this.allUsers.error && this.allUsers.error.message) || null;
-  }
-
-  @computed get loading() {
-    return this.allUsers.loading;
-  }
-
-  @computed get count() {
-    return this.users.length;
-  }
-
-  @action
+  
   createUser = (name, email, city, state, ssn, dateOfBirth) =>
     client
       .mutate({
@@ -50,7 +44,6 @@ export class UserStore {
   }); 
   // reference: https://github.com/sonaye/mobx-apollo/issues/6#issuecomment-328302121
 
-  @action
   subscribe = () => {
     const prop = 'allUsers';
     const node = 'User';
@@ -76,7 +69,6 @@ export class UserStore {
     });
   };
 
-  @action
   deleteUser = (id) =>
     client
       .mutate({
@@ -88,4 +80,4 @@ export class UserStore {
       .catch(error => console.error(error.message));
 }
 
-export default new UserStore;
+export default new UserStore();

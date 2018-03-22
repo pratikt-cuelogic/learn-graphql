@@ -43,7 +43,7 @@ export const deleteUserMutation = gql`
 
 export const userSubscription = gql`
   subscription {
-    User(filter: { mutation_in: [CREATED, UPDATED] }) {
+    User(filter: { mutation_in: [CREATED, UPDATED, DELETED] }) {
       mutation
       node {
         id

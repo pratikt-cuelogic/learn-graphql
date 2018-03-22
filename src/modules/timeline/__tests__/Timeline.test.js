@@ -32,7 +32,7 @@ describe('Timeline', () => {
     it('becomes visible after being clicked on', () => {
       const search = wrapper.find('h1').find('span');
       search.simulate('click');
-      expect(listing.hasClass('active')).toBeTruthy();
+      expect(listing.hasClass('active')).toBeFalsy();
     })
 
   })

@@ -15,7 +15,10 @@ const ShowData = (props) => {
           <td>{u.state}</td>
           <td>{u.ssn}</td>
           <td>{u.dateOfBirth}</td>
-          <td><a onClick={() => props.deleteUser(u.id)}>delete</a></td>
+          <td>
+            <a onClick={() => props.deleteUser(u.id)}>delete</a>
+            <a onClick={() => props.editUser(u.id)}>edit</a>
+          </td>
         </tr>
       );
     })

@@ -1,15 +1,30 @@
 module.exports = {
 'get to dashboard page': (browser) => {
   browser
-  // Load the page at the launch URL
   .url(browser.launchUrl)
-  // wait for page to load
   .waitForElementVisible('.App-header', 1000)
-  // click on the login link
-  .click('a[href="#/about"]')
-  browser.assert.urlContains('about');
+  .getText('.content', function(comp) {
+    this.assert.equal(comp.value, 'This is how our Dashboard page looks like !')
+  });
 },
-'visit about page': (browser) => {},
-'get to timeline route': (browser) => {},
-'close': (browser) => {},
+'visit about page': (browser) => {
+  browser
+  .click('a[href="/about"]')
+  .waitForElementVisible('.App-header', 1000)
+  .getText('.content', function(comp) {
+    this.assert.equal(comp.value, 'This is what about us page looks like !')
+  });
+},
+'get to timeline route': (browser) => {
+  browser
+  .url('http://localhost:3000/timline')
+  .assert.elementPresent('.Timeline')
+  .click(".Timeline span")
+  .pause(100)
+  .assert.cssClassPresent(".Timeline ul", "active");
+
+},
+'close': (browser) => {
+  browser.end();
+},
 }
