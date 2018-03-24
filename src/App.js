@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import './assets/semantic/semantic.min.css';
 import Users from './modules/users/containers/Users';

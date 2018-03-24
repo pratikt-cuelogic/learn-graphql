@@ -59,12 +59,26 @@ const UserList = (props) => {
             </Table.Row>
           </Table.Header>
     
+          <Table.Footer>
+            <Table.Row>
+              <Table.Cell>
+              <a onClick={props.loadMore}>load more</a>
+              </Table.Cell>
+            </Table.Row>
+          </Table.Footer>
+
+          {/* <tfoot>
+            <tr>
+              <td className="rightText" colSpan="7"><a onClick={props.loadMore}>load more</a></td>
+            </tr>
+          </tfoot> */}
+
           <Table.Body>
             <ShowData {...props}/>
           </Table.Body> 
         </Table>
       </div>
     )
-};
+  };
 
 export default UserList;

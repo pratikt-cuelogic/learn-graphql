@@ -64,6 +64,8 @@ class Users extends Component {
     // this.sortUsers(userData);
   }
 
+  loadMore = () => this.props.userStore.loadMore();
+
   render () {
     const {loading, error, users, column, direction} = this.props.userStore;
     return (
@@ -81,6 +83,7 @@ class Users extends Component {
           handleSort={this.handleSort}
           filterUsers={this.filterUsers}
           handleDownload={this.handleDownload}
+          loadMore={this.loadMore}
         />
         <UserCreate createUser={this.createUser} />
       </div>
