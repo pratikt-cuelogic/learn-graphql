@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Users from './modules/users/containers/Users'
+import './assets/semantic/semantic.min.css';
+import Users from './modules/users/containers/Users';
+import Register from './modules/forms/Register';
 
 class App extends Component {
   render() {
@@ -11,7 +13,8 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="App-intro">
-          <Users />
+        
+          <Register />
         </div>
       </div>
     );

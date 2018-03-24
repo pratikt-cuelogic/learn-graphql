@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 // queries and mutations
 export const allUsersQuery = gql`
   {
-    allUsers {
+    allUsers(orderBy: id_DESC) {
       id
       name
       email
@@ -36,3 +36,37 @@ export const deleteUserMutation = gql`
     }
   }
 `;
+
+export const userSubscription = gql`
+  subscription {
+    User(filter: { mutation_in: [CREATED, UPDATED] }) {
+      mutation
+      node {
+        id
+        name
+        email
+        city
+        state
+        ssn
+        dateOfBirth
+      }
+    }
+  }
+`;
+
+export const filteredUsers = gql`
+  query filterUsers($name: String){
+    allUsers(filter: {
+      name: $name
+    }) {
+      id
+      name
+      email
+      city
+      state
+      ssn
+      dateOfBirth
+    }
+  }
+`;
+
