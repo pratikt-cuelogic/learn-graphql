@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import Clock from './Clock';
 
 class Dashboard extends Component {
 	render() {
 		return (
 			<div className="content">
-				This is how our Dashboard page looks like !
+				<Clock />
 			</div>
 		);
 	}
