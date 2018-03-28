@@ -1,8 +1,8 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
+import Filter from './Filter';
 
 const ShowData = (props) => {
-  console.log(props);
   if(props.loading) {
     return <Table.Row><Table.Cell colSpan='7'>loading..</Table.Cell></Table.Row>;
   } else if (props.error) {
@@ -25,32 +25,35 @@ const ShowData = (props) => {
 };
 
 const UserList = (props) => {
-    console.log(props);
-    const { users, loading, error, column, direction, deleteUser, handleSort, filterUsers, handleDownload } = props;
+    const { filterData, filterUsers, setFilterValues, reset, handleSort } = props;
 
     return (
       <div>
-        <input type="text" name="filter_user" onBlur={filterUsers}/>
-        <a onClick={handleDownload}>Download</a>
+        <Filter
+          filterData={filterData}
+          filterUsers={filterUsers}
+          setFilterValues={setFilterValues}
+          reset={reset}
+        />
         <Table sortable celled fixed className="chamunda">
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell sorted={column === 'name' ? direction : null} onClick={handleSort('name')}>
+              <Table.HeaderCell onClick={handleSort('name')}>
                 Name
-              </Table.HeaderCell>
-              <Table.HeaderCell>
+              </Table.HeaderCell >
+              <Table.HeaderCell onClick={handleSort('email')}>
                 Email ID
               </Table.HeaderCell>
-              <Table.HeaderCell>
+              <Table.HeaderCell onClick={handleSort('city')}>
                 City 
               </Table.HeaderCell>
-              <Table.HeaderCell>
+              <Table.HeaderCell onClick={handleSort('state')}>
                 State 
               </Table.HeaderCell >
-              <Table.HeaderCell>
+              <Table.HeaderCell onClick={handleSort('ssn')}>
                 SSN 
               </Table.HeaderCell>
-              <Table.HeaderCell>
+              <Table.HeaderCell onClick={handleSort('dateOfBirth')}>
                 DOB 
               </Table.HeaderCell>
               <Table.HeaderCell>
@@ -66,12 +69,6 @@ const UserList = (props) => {
               </Table.Cell>
             </Table.Row>
           </Table.Footer>
-
-          {/* <tfoot>
-            <tr>
-              <td className="rightText" colSpan="7"><a onClick={props.loadMore}>load more</a></td>
-            </tr>
-          </tfoot> */}
 
           <Table.Body>
             <ShowData {...props}/>

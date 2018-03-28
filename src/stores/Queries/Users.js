@@ -1,10 +1,17 @@
 import gql from 'graphql-tag';
 
 // queries and mutations
+// reference for Filter and Sorting: https://www.graph.cool/docs/reference/graphql-api/query-api-nia9nushae/
 export const allUsersQuery = gql`
 
-  query allUsers($first: Int!, $skip: Int!) {
-    allUsers(first: $first, skip: $skip) {
+  query allUsers($first: Int!, $skip: Int!, $columnName: String, $columnEmail: String, $orderByColumn: UserOrderBy) {
+    allUsers(first: $first, skip: $skip, filter: {
+      AND: [{
+        name_contains: $columnName
+      }, {
+        email_contains: $columnEmail
+      }],
+    }, orderBy: $orderByColumn) {
       id
       name
       email
@@ -54,22 +61,6 @@ export const userSubscription = gql`
         ssn
         dateOfBirth
       }
-    }
-  }
-`;
-
-export const filteredUsers = gql`
-  query filterUsers($name: String){
-    allUsers(filter: {
-      name: $name
-    }) {
-      id
-      name
-      email
-      city
-      state
-      ssn
-      dateOfBirth
     }
   }
 `;

@@ -1,21 +1,34 @@
-import { extendObservable, toJS, observable, computed, action } from 'mobx';
-import gql from 'graphql-tag';
+import { toJS, observable, computed, action } from 'mobx';
 import graphql from 'mobx-apollo';
 import { GqlClient as client } from '../api/GqlClient';
-import { allUsersQuery, createUserMutation, deleteUserMutation, userSubscription, filteredUsers } from './Queries/Users';
+import { allUsersQuery, createUserMutation, deleteUserMutation, userSubscription } from './Queries/Users';
 
 export class UserStore {
+  
+  @observable allUsers = [];
+  @observable filterData = {
+    filterName: '',
+    filterEmail: ''
+  }
+  @observable sortingDirection = 'ASC';
+
   constructor() {
-    this.allUsers = graphql({ client, query: allUsersQuery });
+    this.allUsers = graphql({ client, query: allUsersQuery, variables: { first: 5, skip: 0 } });
     this.subscribe(); 
   }
 
-  @observable allUsers = [];
-  @observable column = null;
-  @observable direction = null;
+  setFilterValues(field, value) {
+    this.filterData[field] = value;
+  }
+
+  @action
+  resetFilterValues() {
+    this.filterData.filterName = '';
+    this.filterData.filterEmail = '';
+  }
 
   get allUsers() {
-    return graphql({ client, query: allUsersQuery });
+    return graphql({ client, query: allUsersQuery, variables: { first: 5, skip: 0 } });
   }
 
   set allUsers(users) {
@@ -24,6 +37,10 @@ export class UserStore {
 
   @computed get users() {
     return (this.allUsers.data && toJS(this.allUsers.data.allUsers)) || [];
+  }
+
+  set users(users) {
+    this.users = users;
   }
 
   @computed get loading() {
@@ -38,12 +55,8 @@ export class UserStore {
     return this.users.length;
   }
 
-  set column(columnValue) {
-    this.column = columnValue;
-  }
-
-  set direction(directionValue) {
-    this.direction = directionValue;
+  setSortingDirection(direction) {
+    this.sortingDirection = direction;
   }
 
   subscribe = () => {
@@ -72,39 +85,11 @@ export class UserStore {
     });
   };
 
-  //   extendObservable(this, {  
-  //     get allUsers() {
-  //       return graphql({ client, query: allUsersQuery, variables: { first: 5, skip: 0 } });
-  //     },
-  //     get error() {
-  //       return (this.allUsers.error && this.allUsers.error.message) || null;
-  //     },
-  //     get loading() {
-  //       return this.allUsers.loading;
-  //     },
-  //     get users() {
-  //       return (this.allUsers.data && toJS(this.allUsers.data.allUsers)) || [];
-  //     },
-  //     get count() {
-  //       return this.users.length;
-  //     }
-  //   });
-  // }
-  
   createUser = (name, email, city, state, ssn, dateOfBirth) =>
     client
       .mutate({
         mutation: createUserMutation,
         variables: { name, email, city, state, ssn, dateOfBirth },
-        // updateQuery: (previousResult, { fetchMoreResult }) => ({
-        //   allUsers: [...previousResult.allUsers, ...fetchMoreResult.allUsers]
-        // })
-        // update: (store, {data: {createUser} }) => {
-        //   // const users = this.users;
-        //   // users.push(createUser);
-        //   // store.writeQuery({ query: allUsersQuery, users });
-        //   // this.allUsers.data = users;
-        // },
         refetchQueries: [{ query: allUsersQuery }]
       })
       .then(() => console.warn('Created a new user ..'))
@@ -128,16 +113,41 @@ export class UserStore {
       .then(() => console.warn('Deleted user ..'))
       .catch(error => console.error(error.message));
 
-  filterUsers = (name) =>
+  filterUsers = () =>
   client
       .query({
-        query: filteredUsers,
-        variables: { name },
-        //refetchQueries: [{ query: allUsersQuery }]
+        query: allUsersQuery,
+        variables: { first: 5, skip: 0, columnName: this.filterData.filterName, columnEmail: this.filterData.filterEmail },
       })
-      .then((data) => console.log(data.data.allUsers))
+      .then((data) => this.allUsers = data)
       .catch(error => console.error(error.message));
-    // this.allUsers = graphql({ client, query: filteredUsers, variables: { name } });
+
+  resetUsers = () =>
+  client
+      .query({
+        query: allUsersQuery,
+        variables: { first: 5, skip: 0 },
+        refetchQueries: [{ query: allUsersQuery }]
+      })
+      .then((data) => this.allUsers.data.allUsers = data.data.allUsers)
+      .catch(error => console.error(error.message));
+
+  sortUsers = (clickedColumn) => {
+  if(this.sortingDirection === 'ASC') {
+    var direction = 'ASC';
+    this.setSortingDirection('DESC');
+  } else {
+    direction = 'DESC';
+    this.setSortingDirection('ASC');
+  }
+  client
+      .query({
+        query: allUsersQuery,
+        variables: { first: 5, skip: 0, orderByColumn: `${clickedColumn}_${direction}` },
+      })
+      .then((data) => this.allUsers = data)
+      .catch(error => console.error(error.message));
+  }
 }
 
 export default new UserStore();
