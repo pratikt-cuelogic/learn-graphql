@@ -14,9 +14,10 @@ export class UserStore {
 
   constructor() {
     this.allUsers = graphql({ client, query: allUsersQuery, variables: { first: 5, skip: 0 } });
-    this.subscribe(); 
+    this.subscribe();
   }
 
+  @action
   setFilterValues(field, value) {
     this.filterData[field] = value;
   }
@@ -31,16 +32,12 @@ export class UserStore {
     return graphql({ client, query: allUsersQuery, variables: { first: 5, skip: 0 } });
   }
 
-  set allUsers(users) {
+  setAllUsers(users) {
     this.allUsers = users;
   }
 
   @computed get users() {
     return (this.allUsers.data && toJS(this.allUsers.data.allUsers)) || [];
-  }
-
-  set users(users) {
-    this.users = users;
   }
 
   @computed get loading() {
@@ -113,14 +110,10 @@ export class UserStore {
       .then(() => console.warn('Deleted user ..'))
       .catch(error => console.error(error.message));
 
-  filterUsers = () =>
-  client
-      .query({
-        query: allUsersQuery,
-        variables: { first: 5, skip: 0, columnName: this.filterData.filterName, columnEmail: this.filterData.filterEmail },
-      })
-      .then((data) => this.allUsers = data)
-      .catch(error => console.error(error.message));
+  filterUsers = () => {
+    const filteredUsers = graphql({ client, query: allUsersQuery, variables: { first: 5, skip: 0, columnName: this.filterData.filterName, columnEmail: this.filterData.filterEmail } });
+    this.setAllUsers(filteredUsers);
+  }
 
   resetUsers = () =>
   client
@@ -133,20 +126,15 @@ export class UserStore {
       .catch(error => console.error(error.message));
 
   sortUsers = (clickedColumn) => {
-  if(this.sortingDirection === 'ASC') {
-    var direction = 'ASC';
-    this.setSortingDirection('DESC');
-  } else {
-    direction = 'DESC';
-    this.setSortingDirection('ASC');
-  }
-  client
-      .query({
-        query: allUsersQuery,
-        variables: { first: 5, skip: 0, orderByColumn: `${clickedColumn}_${direction}` },
-      })
-      .then((data) => this.allUsers = data)
-      .catch(error => console.error(error.message));
+    if(this.sortingDirection === 'ASC') {
+      var direction = 'ASC';
+      this.setSortingDirection('DESC');
+    } else {
+      direction = 'DESC';
+      this.setSortingDirection('ASC');
+    }
+    const sortedUsers = graphql({ client, query: allUsersQuery, variables: { first: 5, skip: 0, orderByColumn: `${clickedColumn}_${direction}` } });
+    this.setAllUsers(sortedUsers);
   }
 }
 
