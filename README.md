@@ -30,3 +30,34 @@ UI test: (Functional Testing/E2E testing, or browser testing):
 babel-jest babel-preset-stage-0 enzyme jest-cli react-addons-test-utils react-test-renderer redux-mock-store sinon
 
 npm i isomorphic-fetch mobx-apollo graphql-tag apollo-client-preset apollo-utilities apollo-link subscriptions-transport-ws apollo-link-ws -S
+
+import { observable, action } from 'mobx';
+
+export class AccountStore {
+  accountTypes = {
+    0: 'individual',
+    1: 'entity',
+    2: 'ira',
+  }
+
+  @observable accountType = this.accountTypes[0];
+
+  @action
+  setAccountType(type) {
+    this.accountType = this.accountTypes[type];
+    console.log(this.accountType);
+  }
+}
+
+export default new AccountStore();
+
+
+GraphQL introduction
+
+user
+ - status: account setup > personal_information, email_address, nextseed account
+
+PersonalInformation
+
+NextseedAccount
+
