@@ -10,7 +10,8 @@ class Users extends Component {
 
   createUser = () => {
     const u = RANDOM_USER();
-    this.props.userStore.createUser(u.name, u.email, u.city, u.state, u.ssn, u.dateOfBirth);
+    console.log(u);
+    this.props.userStore.createUser(u.firstName, u.middleName, u.lastName, u.email, u.accountType, u.accredited, u.lastLogin, u.createdAt, u.phoneNumbers);
   }
 
   deleteUser = (id) => {

@@ -5,12 +5,7 @@ export const allUsersQuery = gql`
   query allUsers($first: Int!, $skip: Int!) {
     allUsers(first: $first, skip: $skip) {
       id
-      name
       email
-      city
-      state
-      ssn
-      dateOfBirth
     }
     _allUsersMeta {
       count
@@ -19,15 +14,16 @@ export const allUsersQuery = gql`
 `;
 
 export const createUserMutation = gql`
-  mutation createUser($name: String!, $email: String!, $city: String!, $state: String!, $ssn: String!, $dateOfBirth: DateTime!, ) {
-    createUser(name: $name, email: $email, city: $city, state: $state, ssn: $ssn, dateOfBirth: $dateOfBirth) {
+  mutation createUser($firstName: String!, $middleName: String!, $lastName: String!, $email: String!, $accountType: USER_ACCOUNT_TYPE! , $accredited: Boolean!, $lastLogin: DateTime!) {
+    createUser(firstName: $firstName, middleName: $middleName, lastName: $lastName, email: $email, accountType: $accountType, accredited: $accredited, lastLogin: $lastLogin) {
       id
-      name
+      firstName
+      middleName
+      lastName
       email
-      city
-      state
-      ssn
-      dateOfBirth
+      accountType
+      accredited
+      lastLogin
     }
   }
 `;
