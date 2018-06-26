@@ -1,122 +1,27 @@
-.App {
+.header-wrap .ui.menu .menu .item.active {
+  background-color: darkcyan!important;
+}
+
+.segment.content {
+  min-height: 680px !important;
+}
+
+.header.item {
+  color: darkcyan!important;
+  font-size: 1.3em!important;
+}
+
+.ql-editor {
+  height: 250px!important;
+}
+
+.private-logo {
   text-align: center;
+  color: darkcyan;
+  font-size: 30px;
+  margin-bottom: 65px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 25px;
-  padding: 5px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1em;
-  float: left;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-
-.chamunda {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 70%;
-    font-size: 13px;
-    float: left;
-    text-align: left;
-}
-
-.chamunda td, .chamunda th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.chamunda tr:nth-child(even){background-color: #f2f2f2;}
-
-.chamunda tr:hover {background-color: #ddd;}
-
-.chamunda th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-}
-
-.rightText {
-  text-align: right;
-  color: blue;
-  font-size: 15px;
-  margin-right: 11px;
-  cursor: pointer;
-}
-
-/*
-Timeline css
-*/
-
-.Timeline {
-  width: 540px;
-  border: 1px solid #d2c1c1;
-}
-
-.Timeline h1 {
-  font-size: 26px;
-  padding: 11px;
-  margin: 0;
-  background-color: #2607a0;
-  color: white;
-}
-
-.Timeline h1 span{
-  font-size: 12px;
-  float: right;
-}
-
-.Timeline ul {
-  list-style: none;
-  text-align: left;
-  display: none;
-}
-
-.Timeline ul.active {
-  display: block;
-}
-.Timeline ul li span.time {
-  font-size: 14px;
-  font-style: italic;
-  color: #333;
-  float: left;
-  min-width:100px;
-}
-
-.App-header h1 a {
-  color: #FFF;
-  margin: 10px;
-  font-size: 16px;
-  text-decoration: none;
-}
-
-.clock {
-      font-size: 160px;
-    background-color: floralwhite;
-    color: goldenrod;
-    width: 56%;
-    float: left;
-    padding: 20px;
-    border: 1px solid goldenrod;
-    border-radius: 18px;
-    margin-top: 30px;
+.capitalize {
+  text-transform: capitalize;
 }

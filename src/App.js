@@ -1,36 +1,27 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect, Link } from 'react-router-dom';
-import DevTools from 'mobx-react-devtools';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
+import { Segment, Container, Grid } from 'semantic-ui-react';
+import Layout from './theme/layout/Layout';
+import Private from './modules/private/index';
+import Public from './modules/public/index';
+import './assets/semantic/semantic.min.css';
 import './App.css';
-import Users from './modules/users/containers/Users';
-import Timeline from './modules/timeline/containers/Timeline'
-import Dashboard from './modules/dashboard/Dashboard'
-import About from './modules/about/About'
 
+@inject('cmsStore')
+@withRouter
+@observer
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">
-            <Link to="/">Dashboard</Link>
-            <Link to="/timline">Timeline</Link>
-            <Link to="/about">About</Link>
-            <Link to="/users">Users</Link>
-          </h1>
-        </header>
+      <Layout>
         <Switch>
-          <Route path="/about" component={About} />
-          <Route path="/users" component={Users} />
-          <Route path="/timline" component={Timeline} />
-          <Route path="/" exact component={Dashboard} />
-          <Redirect to="/"/>
+          <Route exact path="/app/*" component={Private} />
+          <Route path="/" component={Public} />
         </Switch>
-      </div>
+      </Layout>
     );
   }
 }
 
 export default App;
-
-// <Users />
