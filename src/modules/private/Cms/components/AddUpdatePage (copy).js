@@ -4,7 +4,9 @@ import { inject, observer } from 'mobx-react';
 import Aux from 'react-aux';
 import { Header, Card, Form, Button } from 'semantic-ui-react';
 import ReactQuill from 'react-quill';
+import grapesjs from 'grapesjs';
 import 'react-quill/dist/quill.snow.css';
+import 'grapesjs/dist/css/grapes.min.css';
 import Helper from '../../../../helper/utility';
 import { LoadingSpinner } from '../../../../theme/common/ImportCommon';
 import { FormInput, FormDropDown } from '../../../../theme/form/FormElements';
@@ -18,6 +20,14 @@ export default class AddUpdatePage extends Component {
   }
   componentWillReceiveProps(nextProps) {
     this.initiateFlow(nextProps.match);
+  }
+
+  componentDidMount() {
+    const editor = grapesjs.init({
+        container : '#gjs',
+        components: '<div class="txt-red">Hello world!</div>',
+        style: '.txt-red{color: red}',
+    });
   }
 
   initiateFlow = (match) => {
@@ -42,6 +52,8 @@ export default class AddUpdatePage extends Component {
   render() {
     const { PBUILDER_FRM, currentPage, eleChange } = this.props.cmsStore;
     const action = this.props.match.params.id === 'new' ? 'new' : 'edit';
+
+    return <div id ='gjs' />;
 
     if (currentPage.loading) {
       return <LoadingSpinner />

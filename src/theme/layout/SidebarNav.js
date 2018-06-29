@@ -16,6 +16,7 @@ export class SidebarNav extends Component {
           <Dropdown.Menu>
             <Dropdown.Item as={NavLink} to="/app/page-builder">Listing</Dropdown.Item>
             <Dropdown.Item as={NavLink} to="/app/page-builder/new">Add new</Dropdown.Item>
+            <Dropdown.Item as={NavLink} to="/app/page-builder/grapesjs">Grapesjs</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </Aux>

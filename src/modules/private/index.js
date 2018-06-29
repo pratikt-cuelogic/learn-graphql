@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Grid, Header } from 'semantic-ui-react';
-import SidebarLeftOverlay from './../../theme/layout/SidebarLeftOverlay';
+import SidebarLeftOverlay from 'theme/layout/SidebarLeftOverlay';
 import PageBuilder from './Cms/containers/PageBuilder';
 
 @withRouter
