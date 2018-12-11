@@ -22,6 +22,7 @@ export class CmsStore {
       query: getAllPages,
       variables: { filter },
     });
+   
   }
 
   @action
@@ -30,6 +31,7 @@ export class CmsStore {
       client,
       query: getAllPages,
     });
+    console.log('returned data',this.navMeta);
   }
 
   @action
